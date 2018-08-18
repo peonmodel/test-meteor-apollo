@@ -1,0 +1,115 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module",
+        "allowImportExportEverywhere": true //added to prevent error 'Parsing error: 'import' and 'export' may only appear at the top level'
+    },
+    "plugins": [
+        "meteor",
+        "react"
+    ],
+    "extends": [
+        "airbnb",
+        "plugin:meteor/recommended"
+    ],
+    "settings": {
+        "import/resolver": "meteor"
+        // "import/core-modules": [ //set "import/no-extraneous-dependencies" off for the timebeing
+        //     "meteor/accounts-base",
+        //     "meteor/alanning:roles",
+        //     "meteor/aldeed:autoform",
+        //     "meteor/aslagle:reactive-table",
+        //     "meteor/babrahams:transactions",
+        //     "meteor/browser-policy",
+        //     "meteor/check",
+        //     "meteor/ddp-rate-limiter",
+        //     "meteor/http",
+        //     "meteor/jquery",
+        //     "meteor/joshowens:shareit",
+        //     "meteor/juliancwirko:s-alert",
+        //     "meteor/kadira:blaze-layout",
+        //     "meteor/kadira:dochead",
+        //     "meteor/kadira:flow-router",
+        //     "meteor/konecty:mongo-counter",
+        //     "meteor/mdg:validated-method",
+        //     "meteor/meteor",
+        //     "meteor/meteorhacks:picker",
+        //     "meteor/meteorhacks:ssr",
+        //     "meteor/mongo",
+        //     "meteor/msgfmt:core",
+        //     "meteor/peppelg:bootstrap-3-modal",
+        //     "meteor/percolate:synced-cron",
+        //     "meteor/random",
+        //     "meteor/react-meteor-data",
+        //     "meteor/reactive-var",
+        //     "meteor/retry",
+        //     "meteor/simple:imgur",
+        //     "meteor/spacebars",
+        //     "meteor/templating",
+        //     "meteor/tracker",
+        //     "meteor/underscore",
+        //     "meteor/useraccounts:core",
+        //     "meteor/webapp"
+        // ]
+    },
+    "rules": {
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "max-len": "off",
+        "indent": "off",
+        "comma-dangle": "off",
+        "spaced-comment": "off",
+        "import/extensions": "off",
+        // [
+        //     "error",
+        //     "always",
+        //     {
+        //         "js": "always",
+        //         "html": "always"
+        //     }
+        // ],
+        "quotes": [
+            "off",
+            "single"
+        ],
+        "no-console": "off",
+        "import/first": "off",
+        "import/no-duplicates": "off",
+        "no-underscore-dangle": "off",
+        "import/newline-after-import": "off",
+        "no-multiple-empty-lines": "off",
+        "import/prefer-default-export": "off",
+        "semi": "off",
+        "no-use-before-define": "off",
+        "react/jsx-filename-extension": "off",
+        "react/jsx-indent": "off",
+        "react/jsx-indent-props": "off",
+        "import/no-extraneous-dependencies": ["off"],
+        "object-curly-newline": ["off"],
+        "import/no-absolute-path": ["off"],
+        "function-paren-newline": ["off"],
+        "func-names": "off",
+        "import/order": "off",
+        "no-nested-ternary": "off",
+        "no-loop-func": "off",
+        "one-var": "off",
+        "class-methods-use-this": "off",
+        "react/destructuring-assignment": "off",
+        "react/jsx-one-expression-per-line": "off",
+        "jsx-a11y/label-has-for": "off",
+        "one-var-declaration-per-line": "off",
+        "no-unused-vars": ["error", { "args": "none" }],
+        "no-return-await": "off"
+    }
+}

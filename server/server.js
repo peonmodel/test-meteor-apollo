@@ -1,61 +1,77 @@
-import { ApolloServer, gql } from 'apollo-server-express'
-import { WebApp } from 'meteor/webapp'
+import { ApolloServer } from 'apollo-server-express'
+import { typeDefs } from './schema.js'
+import { resolvers } from './resolvers.js'
+import { DSBooks } from "./DSBooks.js"
 import { getUser } from 'meteor/apollo'
 
-const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling'
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton'
-  }
-]
-
-// Type definitions define the "shape" of your data and specify
-// which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
-  # Comments in GraphQL are defined with the hash (#) symbol.
-
-  # This "Book" type can be used in other type declarations.
-  type Book {
-    title: String
-    author: String
-  }
-
-  # The "Query" type is the root of all GraphQL queries.
-  # (A "Mutation" type will be covered later on.)
-  type Query {
-    books: [Book]
-  }
-`
-
-// Resolvers define the technique for fetching the types in the
-// schema.  We'll retrieve books from the "books" array above.
-const resolvers = {
-  Query: {
-    books: (x, y, { user }) => console.log(user) || books
-  }
-}
-
-const server = new ApolloServer({
+const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req }) => ({
-    user: await getUser(req.headers.authorization)
-  })
+  dataSources: () => ({
+    dsBooks: new DSBooks()
+  }),
+  context: async ({ req, connection }) => {
+    if (connection) {
+      const token = req.headers.authorization || ""
+      return { token }
+    }
+    return { user: await getUser(req.headers.authorization) }
+  },
+  uploads: false,
+  // subscriptions: { // Need to get this to work. If you enable this, also uncomment apolloServer.installSubscriptionHandlers() below
+  //   path: "/subscriptions",
+  //   onConnect: async (connectionParams, webSocket, context) => { //connectionParams has authToken that was set in WebSocketLink on client
+  //     console.log(`Subscription client connected using built-in SubscriptionServer.`)
+  //     console.log(`connectionParams: ${JSON.stringify(connectionParams)}`)
+
+  //     if (connectionParams.authToken) return { user: await getUser(connectionParams.authToken) } //puts user into subscription context so that it can be used with withFilter()
+
+  //     // throw new Error('Missing auth token. Please log in.')
+  //   },
+  //   onDisconnect: async (webSocket, context) => {
+  //     console.log(`Subscription client disconnected.`)
+  //   }
+  // } //subscriptions
 })
 
-server.applyMiddleware({
-  app: WebApp.connectHandlers,
-  path: '/graphql'
-})
+import { WebApp } from 'meteor/webapp'
+apolloServer.applyMiddleware({ app: WebApp.connectHandlers }) //path option defaults to /graphql
 
 // We are doing this work-around because Playground sets headers and WebApp also sets headers
 // Resulting into a conflict and a server side exception of "Headers already sent"
 WebApp.connectHandlers.use('/graphql', (req, res) => {
-  if (req.method === 'GET') {
-    res.end()
-  }
+  if (req.method === 'GET') res.end()
 })
+
+// apolloServer.installSubscriptionHandlers(WebApp.httpServer) // TODO: re-enable when fixed. In the meantime a new SubscriptionServer is created below
+
+
+
+
+//Remove code below if you enable subscriptions option in ApolloServer above
+import { SubscriptionServer } from 'subscriptions-transport-ws' //TODO: remove when built-in server is fixed. In the meantime a new SubscriptionServer is created below
+import { execute, subscribe } from 'graphql'
+import { makeExecutableSchema } from 'graphql-tools'
+
+SubscriptionServer.create(
+  {
+    schema: makeExecutableSchema({ typeDefs, resolvers }),
+    execute,
+    subscribe,
+    onConnect: async (connectionParams, webSocket, context) => { //connectionParams has authToken that was set in WebSocketLink on client
+      console.log(`Subscription client connected using new SubscriptionServer.`)
+      console.log(`connectionParams: ${JSON.stringify(connectionParams)}`)
+
+      if (connectionParams.authToken) return { user: await getUser(connectionParams.authToken) } //puts user into subscription context so that it can be used with withFilter()
+
+      throw new Error('Missing auth token. Please log in.')
+    },
+    onDisconnect: async (webSocket, context) => {
+      console.log(`Subscription client disconnected.`)
+    }
+  },
+  {
+    server: WebApp.httpServer,
+    path: "/subscriptions",
+  },
+)

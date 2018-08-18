@@ -1,0 +1,2 @@
+import { PubSub } from 'apollo-server-express' //"Note that the default PubSub implementation is intended for demo purposes. It only works if you have a single instance of your server and doesn't scale beyond a couple of connections. For production usage you'll want to use one of the PubSub implementations backed by an external store. (e.g. Redis)". https://github.com/apollographql/graphql-subscriptions
+export const pubSub = new PubSub()

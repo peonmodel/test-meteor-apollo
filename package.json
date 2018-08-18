@@ -1,19 +1,24 @@
 {
-  "name": "accounts-password",
+  "name": "test-meteor-apollo",
   "private": true,
   "scripts": {
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.51",
-    "apollo-boost": "^0.1.12",
-    "apollo-cache-inmemory": "^1.2.6",
-    "apollo-client": "^2.3.7",
-    "apollo-link": "1.2.2",
+    "@babel/runtime": "7.0.0-beta.55",
+    "apollo-cache-inmemory": "^1.2.8",
+    "apollo-client": "^2.4.0",
+    "apollo-link": "^1.2.2",
     "apollo-link-http": "^1.5.4",
-    "apollo-server-express": "^2.0.0",
-    "bcrypt": "^3.0.0",
+    "apollo-link-ws": "^1.0.8",
+    "apollo-server-express": "^2.0.3",
     "graphql": "^0.13.2",
-    "meteor-node-stubs": "^0.4.1"
+    "meteor-node-stubs": "^0.4.1",
+    "react": "^16.4.2",
+    "react-apollo": "^2.1.11",
+    "react-dom": "^16.4.2",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.2",
+    "subscriptions-transport-ws": "^0.9.14"
   }
 }
