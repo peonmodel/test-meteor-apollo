@@ -10,8 +10,8 @@ class App extends Component {
   render() {
     import { ApolloClient } from 'apollo-client'
     import { ApolloLink } from 'apollo-link'
-    import { HttpLink } from 'apollo-link-http'
     import { MeteorAccountsLink } from 'meteor/apollo'
+    import { HttpLink } from 'apollo-link-http'
     import { WebSocketLink } from 'apollo-link-ws'
     import { InMemoryCache } from 'apollo-cache-inmemory'
     import { Meteor } from "meteor/meteor"
@@ -32,18 +32,16 @@ class App extends Component {
         }),
         ApolloLink.from([
           new MeteorAccountsLink(),
-          new HttpLink({
-            uri: '/graphql'
-          })
+          new HttpLink({ uri: "/graphql" })
         ])
       ),
       cache: new InMemoryCache()
     })
 
     import { ApolloProvider } from 'react-apollo'
-    import LoginForm from './LoginForm.js'
-    import Books from './Books.js'
-    import BookAdd from "./BookAdd.js"
+    import LoginForm from './LoginForm.jsx'
+    import Books from './Books.jsx'
+    import BookAdd from "./BookAdd.jsx"
 
     return (
       <>
@@ -52,12 +50,16 @@ class App extends Component {
         </div>
         <ApolloProvider client={apolloClient}>
           <>
-          {this.props.userId === null
-            ? <LoginForm />
-            : <button type="button" onClick={() => { Meteor.logout() }} className="btn btn-primary btn-xs">Sign out</button>}
-          <br /><br />
-          <BookAdd />
-          <Books />
+            {this.props.userId !== null
+              ? (
+                <>
+                  <button type="button" onClick={() => { Meteor.logout() }} className="btn btn-primary btn-xs">Sign out</button>
+                  <Books />
+                  <br /><br />
+                  <BookAdd />
+                </>
+              )
+              : <LoginForm />}
           </>
         </ApolloProvider>
       </>

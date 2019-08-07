@@ -1,6 +1,8 @@
-
+import { Meteor } from "meteor/meteor"
 import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import { render } from "react-dom"
+import App from './App.jsx'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+Meteor.startup(() => {
+  render(<App />, document.getElementById("root"))
+})

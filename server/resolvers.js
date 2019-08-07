@@ -8,7 +8,7 @@ export const resolvers = {
   Query: {
     // books: async (root, args, { dataSources, user }) => {
     books: async (root, args, context) => {
-      console.log(`Query context: ${JSON.stringify(context)}`)
+      // console.log(`Query context: ${JSON.stringify(context, null, 2)}`) //causes error: Converting circular structure to JSON
       // if (!context.user) throw new Error('Please log in.') //enable if login is required
 
       // const books = await context.dataSources.dsBooks.getBooks(context.user ? { idOfOwner: context.user._id } : {}) //Meteor user available because of https://github.com/apollographql/meteor-integration

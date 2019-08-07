@@ -5,20 +5,22 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "7.0.0-beta.55",
-    "apollo-cache-inmemory": "^1.2.10",
-    "apollo-client": "^2.4.2",
-    "apollo-link": "^1.2.3",
-    "apollo-link-http": "^1.5.5",
-    "apollo-link-ws": "^1.0.9",
-    "apollo-server-express": "^2.0.7",
-    "graphql": "^14.0.2",
+    "@babel/runtime": "^7.5.5",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link": "^1.2.12",
+    "apollo-link-http": "^1.5.15",
+    "apollo-link-ws": "^1.0.18",
+    "apollo-server-express": "^2.8.1",
+    "dataloader": "^1.4.0",
+    "datasource-sql": "^0.2.0",
+    "graphql": "^14.4.2",
+    "knex": "^0.19.1",
     "meteor-node-stubs": "^0.4.1",
-    "react": "^16.5.1",
-    "react-apollo": "^2.1.11",
-    "react-dom": "^16.5.1",
-    "sequelize": "^4.38.1",
+    "react": "^16.8.6",
+    "react-apollo": "^3.0.0",
+    "react-dom": "^16.8.6",
     "sqlite3": "^4.0.2",
-    "subscriptions-transport-ws": "^0.9.14"
+    "subscriptions-transport-ws": "^0.9.16"
   }
 }

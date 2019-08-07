@@ -32,7 +32,7 @@ class Books extends Component {
         // }}
         >
           {({ loading: loading0, error: error0, data }) => {
-            import Loading from './Loading.js'
+            import Loading from './Loading.jsx'
             if (loading0) return <Loading />
             if (error0) return <p>Query error: {error0}</p>
 
@@ -70,7 +70,7 @@ class Books extends Component {
               console.log(`New data from subscription: ${JSON.stringify(data)}`)
               return (
                 <>
-                  <h3>Latest book</h3>
+                  <h3>Latest book (Subscription output)</h3>
                   {JSON.stringify(data)}
                 </>
               )
